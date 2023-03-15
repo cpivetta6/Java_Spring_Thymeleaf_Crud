@@ -2,17 +2,15 @@ package com.caiopivetta6.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import com.caiopivetta6.dao.EmployerDao;
 import com.caiopivetta6.model.Employer;
 
-@Component
-@Service
-public class EmployerService {
 
+public interface EmployerService {
+
+	List<Employer> getAllEmployers();
+	
+	
+	/*
 	@Autowired
 	EmployerDao employerDao;
 	
@@ -39,5 +37,5 @@ public class EmployerService {
 	public void deleteEmp(Integer id) {
 		employerDao.deleteEmp(id);
 	}
-	
+	*/
 }

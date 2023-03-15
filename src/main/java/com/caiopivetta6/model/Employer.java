@@ -1,14 +1,26 @@
 package com.caiopivetta6.model;
 
+import java.io.Serializable;
 
-public class Employer {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class Employer implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String name;
-	private String department;
-	private String address;
-	private Double salary;
-	private String designation;
+	private String firstName;
+	private String lastName;
+	private String email;
 
 	public Employer() {
 		
@@ -22,54 +34,30 @@ public class Employer {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getDepartment() {
-		return department;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
-	
-
-	public Double getSalary() {
-		return salary;
-	}
-
-	public void setSalary(Double salary) {
-		this.salary = salary;
-	}
-
-	public String getDesignation() {
-		return designation;
-	}
-
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
-
-	@Override
-	public String toString() {
-		return "Employer [id=" + id + ", name=" + name + ", department=" + department + ", address=" + address
-				+ ", salary=" + salary + ", designation=" + designation + "]";
-	}
-
 	
 	
 	
