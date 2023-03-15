@@ -8,7 +8,7 @@ import com.caiopivetta6.model.Employer;
 public interface EmployerService {
 
 	List<Employer> getAllEmployers();
-	
+	void saveEmployer(Employer employer);
 	
 	/*
 	@Autowired

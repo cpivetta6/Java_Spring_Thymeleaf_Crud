@@ -19,6 +19,13 @@ public class EmployerServiceImpl implements EmployerService{
 		return employerRespository.findAll();
 	}
 
+	@Override
+	public void saveEmployer(Employer employer) {
+		this.employerRespository.save(employer);
+	}
+	
+	
+
 	
 	
 }

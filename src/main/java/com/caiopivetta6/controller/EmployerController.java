@@ -24,4 +24,17 @@ public class EmployerController {
 		return "index";
 	}
 	
+	@GetMapping("/showNewEmployeeForm")
+	public String showNewEmployeeForm(Model model) {
+		Employer employer = new Employer();
+		model.addAttribute("employer", employer);
+		return "new_employee";
+	}
+	
+	@PostMapping("/saveEmployee")
+	public String saveEmployee(@ModelAttribute("employer") Employer employer) {
+		employerService.saveEmployer(employer);
+		return "redirect:/";
+	}
+	
 }
