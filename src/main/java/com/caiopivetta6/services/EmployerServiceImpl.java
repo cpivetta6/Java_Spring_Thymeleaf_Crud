@@ -22,7 +22,16 @@ public class EmployerServiceImpl implements EmployerService{
 
 	@Override
 	public void saveEmployer(Employer employer) {
-		this.employerRespository.save(employer);
+		Employer empLowCase = new Employer();
+		
+		empLowCase.setId(employer.getId());
+		empLowCase.setFirstName(employer.getFirstName().toLowerCase());
+		empLowCase.setLastName(employer.getLastName().toLowerCase());
+		empLowCase.setEmail(employer.getEmail().toLowerCase());
+		empLowCase.setSalary(employer.getSalary());
+		//empLowCase.setNetSalary(employer.getNetSalary());
+		
+		this.employerRespository.save(empLowCase);
 	}
 
 	@Override
