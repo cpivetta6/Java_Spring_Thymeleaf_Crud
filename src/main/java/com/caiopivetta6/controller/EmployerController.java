@@ -37,4 +37,17 @@ public class EmployerController {
 		return "redirect:/";
 	}
 	
+	
+	@GetMapping("/showFormForUpdate/{id}")
+	public String showFormForUpdate(@PathVariable (value = "id") Integer id, Model model) {
+		
+		//get Employee from the service 
+		Employer employer = employerService.getEmployerById(id);
+		
+		//Set Employee as a model attribute to pre populate the form
+		model.addAttribute("employer", employer);
+		return "update_employee";
+		
+	}
+	
 }

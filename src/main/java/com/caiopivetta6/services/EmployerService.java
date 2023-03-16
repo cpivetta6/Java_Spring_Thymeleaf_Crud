@@ -9,6 +9,7 @@ public interface EmployerService {
 
 	List<Employer> getAllEmployers();
 	void saveEmployer(Employer employer);
+	Employer getEmployerById(Integer id);
 	
 	/*
 	@Autowired
