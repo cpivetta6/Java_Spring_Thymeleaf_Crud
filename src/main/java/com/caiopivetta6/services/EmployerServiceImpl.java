@@ -29,7 +29,7 @@ public class EmployerServiceImpl implements EmployerService{
 		empLowCase.setLastName(employer.getLastName().toLowerCase());
 		empLowCase.setEmail(employer.getEmail().toLowerCase());
 		empLowCase.setSalary(employer.getSalary());
-		//empLowCase.setNetSalary(employer.getNetSalary());
+	
 		
 		this.employerRespository.save(empLowCase);
 	}
