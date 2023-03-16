@@ -50,4 +50,12 @@ public class EmployerController {
 		
 	}
 	
+	@GetMapping("/deleteEmployee/{id}")
+	public String deleteEmployee(@PathVariable (value = "id") Integer id) {
+			//call delete employee method
+			this.employerService.deleteEmployer(id);
+			return "redirect:/";
+		
+	}
+	
 }

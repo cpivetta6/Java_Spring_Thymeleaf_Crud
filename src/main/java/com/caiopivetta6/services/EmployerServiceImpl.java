@@ -39,6 +39,12 @@ public class EmployerServiceImpl implements EmployerService{
 		return employer;
 		
 	}
+
+	@Override
+	public void deleteEmployer(Integer id) {
+		this.employerRespository.deleteById(id);
+		
+	}
 	
 	
 
