@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Employer implements Serializable{
+public class Employee implements Serializable{
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public class Employer implements Serializable{
 	private Double salary;
 	private Double netSalary;
 
-	public Employer() {
+	public Employee() {
 		
 	}
 

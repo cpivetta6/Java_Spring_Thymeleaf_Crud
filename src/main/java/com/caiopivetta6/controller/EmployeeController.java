@@ -8,32 +8,32 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.caiopivetta6.model.Employer;
-import com.caiopivetta6.services.EmployerService;
+import com.caiopivetta6.model.Employee;
+import com.caiopivetta6.services.EmployeeService;
 
 @Controller
-public class EmployerController {
+public class EmployeeController {
 	
 	
 	@Autowired
-	private EmployerService employerService;
+	private EmployeeService employeeService;
 
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
-		model.addAttribute("listEmployers", employerService.getAllEmployers());
+		model.addAttribute("listEmployees", employeeService.getAllEmployees());
 		return "index";
 	}
 	
 	@GetMapping("/showNewEmployeeForm")
 	public String showNewEmployeeForm(Model model) {
-		Employer employer = new Employer();
-		model.addAttribute("employer", employer);
+		Employee employee = new Employee();
+		model.addAttribute("employee", employee);
 		return "new_employee";
 	}
 	
 	@PostMapping("/saveEmployee")
-	public String saveEmployee(@ModelAttribute("employer") Employer employer) {
-		employerService.saveEmployer(employer);
+	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
+		employeeService.saveEmployee(employee);
 		return "redirect:/";
 	}
 	
@@ -42,10 +42,10 @@ public class EmployerController {
 	public String showFormForUpdate(@PathVariable (value = "id") Integer id, Model model) {
 		
 		//get Employee from the service 
-		Employer employer = employerService.getEmployerById(id);
+		Employee employee = employeeService.getEmployee(id);
 		
 		//Set Employee as a model attribute to pre populate the form
-		model.addAttribute("employer", employer);
+		model.addAttribute("employee", employee);
 		return "update_employee";
 		
 	}
@@ -53,7 +53,7 @@ public class EmployerController {
 	@GetMapping("/deleteEmployee/{id}")
 	public String deleteEmployee(@PathVariable (value = "id") Integer id) {
 			//call delete employee method
-			this.employerService.deleteEmployer(id);
+			this.employeeService.deleteEmployee(id);
 			return "redirect:/";
 		
 	}
