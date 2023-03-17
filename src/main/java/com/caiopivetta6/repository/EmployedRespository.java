@@ -7,4 +7,7 @@ import com.caiopivetta6.model.Employee;
 
 public interface EmployedRespository extends JpaRepository<Employee, Integer> {
 
+		
+	
+	
 }
