@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.caiopivetta6.model.Employee;
 import com.caiopivetta6.services.EmployeeService;
@@ -23,8 +24,8 @@ public class EmployeeController {
 
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
-		//model.addAttribute("listEmployees", employeeService.getAllEmployees());
-		return findPaginated(1, model);
+		
+		return findPaginated(1,"firstName", "asc", model);
 	}
 	
 	@GetMapping("/showNewEmployeeForm")
@@ -62,18 +63,54 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/page/{pageNo}")
-	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Model model) {
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, 
+			@RequestParam("sortField") String sortField,
+			@RequestParam("sortDir") String sortDir,
+			Model model) {
+		int pageSize = 5;
+		
+		Page<Employee> page = employeeService.findPaginated(pageNo, pageSize, sortField, sortDir);
+		List<Employee> listEmployees = page.getContent();
+		
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+		
+		model.addAttribute("listEmployees", listEmployees);
+		return "index";
+	}
+	
+	
+	/*@GetMapping("/page/{pageNo}")
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, 
+								@RequestParam("sortField") String sortField,
+								@RequestParam("sortDir") String sortDir,
+							    Model model) {
+		
 			int pageSize = 5;
 			
-			Page<Employee> page = employeeService.findPaginated(pageNo, pageSize);
+			//take a mapped Page number and page size from the Service and put on a list.
+			Page<Employee> page = employeeService.findPaginated(pageNo, pageSize, sortField, sortDir);
 			List<Employee> listEmployees = page.getContent();
 			
+			//add page numbers, current page and last page, links, and put the list from a range size of a actual model.
 			model.addAttribute("currentPage", pageNo);
 			model.addAttribute("totalPages", page.getTotalPages());
-			model.addAttribute("t", page.getTotalElements());
+			model.addAttribute("totalItems", page.getTotalElements());
+			
+			model.addAttribute("sortField", sortField);
+			model.addAttribute("sortDir", sortDir);
+			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+			
+			
 			model.addAttribute("listEmployees", listEmployees);
+			
 			return "index";
 			
-	}
+	}*/
 	
 }

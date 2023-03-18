@@ -21,7 +21,7 @@ public class Employee implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String email;
-	private Double salary;
+	private Double grossSalary;
 	private Double netSalary;
 
 	public Employee() {
@@ -61,11 +61,11 @@ public class Employee implements Serializable{
 	}
 
 	public Double getSalary() {
-		return salary;
+		return grossSalary;
 	}
 
 	public void setSalary(Double salary) {
-		this.salary = salary;
+		this.grossSalary = salary;
 		this.netSalary = salary * 0.8;
 	}
 

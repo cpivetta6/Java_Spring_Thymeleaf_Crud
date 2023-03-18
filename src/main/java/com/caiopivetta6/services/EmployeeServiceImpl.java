@@ -7,20 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.caiopivetta6.model.Employee;
-import com.caiopivetta6.repository.EmployedRespository;
+import com.caiopivetta6.repository.EmployedRepository;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
 	@Autowired
-	private EmployedRespository employeeRespository;
+	private EmployedRepository employeeRepository;
 	
 	@Override
 	public List<Employee> getAllEmployees() {
-		return employeeRespository.findAll();
+		return employeeRepository.findAll();
 	}
 
 	
@@ -36,12 +37,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 		empLowCase.setSalary(employee.getSalary());
 	
 		
-		this.employeeRespository.save(empLowCase);
+		this.employeeRepository.save(empLowCase);
 	}
 
 	@Override
 	public Employee getEmployee(Integer id) {
-		Optional<Employee> optional = employeeRespository.findById(id);
+		Optional<Employee> optional = employeeRepository.findById(id);
 		Employee employee = null;
 		
 		if(optional.isPresent()) {
@@ -56,17 +57,31 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public void deleteEmployee(Integer id) {
-		this.employeeRespository.deleteById(id);
+		this.employeeRepository.deleteById(id);
+		
 		
 	}
 
-
-
+	
+	
 	@Override
-	public Page<Employee> findPaginated(int pageNo, int pageSize) {
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-		return this.employeeRespository.findAll(pageable);
+	public Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+			Sort.by(sortField).descending();
+		
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+		return this.employeeRepository.findAll(pageable);
 	}
+
+	/*@Override
+	public Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirectional) {
+		
+		// method takes a Sort parameter that specifies the order in which the results should be returned. 
+		Sort sort = sortDirectional.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+		
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+		return this.employeeRespository.findAll(pageable);
+	}*/
 
 
 	
