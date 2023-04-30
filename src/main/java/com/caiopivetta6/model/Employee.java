@@ -2,6 +2,10 @@ package com.caiopivetta6.model;
 
 import java.io.Serializable;
 
+import com.caiopivetta6.entities.Budget;
+import com.caiopivetta6.entities.IRPEF;
+import com.caiopivetta6.entities.taxBudget;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +27,8 @@ public class Employee implements Serializable{
 	private String email;
 	private Double grossSalary;
 	private Double netSalary;
+	
+	
 
 	public Employee() {
 		
@@ -65,20 +71,17 @@ public class Employee implements Serializable{
 	}
 
 	public void setSalary(Double salary) {
+		//Tax Calculator
+		taxBudget IRPEF = new IRPEF();
+		
 		this.grossSalary = salary;
-		this.netSalary = salary * 0.8;
+		this.netSalary = IRPEF.calculateTax(new Budget(salary));
 	}
 
 	public Double getNetSalary() {
 		return netSalary;
 	}
 
-	
-	
-	
-	
-	
-	
 	
 	
 }
