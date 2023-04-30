@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 import com.caiopivetta6.entities.Budget;
 import com.caiopivetta6.entities.IRPEF;
-import com.caiopivetta6.entities.taxBudget;
+import com.caiopivetta6.entities.TaxableIncome;
+import com.caiopivetta6.entities.taxCalculate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -71,17 +72,23 @@ public class Employee implements Serializable{
 	}
 
 	public void setSalary(Double salary) {
-		//Tax Calculator
-		taxBudget IRPEF = new IRPEF();
 		
-		this.grossSalary = salary;
-		this.netSalary = IRPEF.calculateTax(new Budget(salary));
+		calculateNetSalary(salary, new IRPEF());
+		
 	}
 
 	public Double getNetSalary() {
 		return netSalary;
 	}
 
-	
+	//method for tax calculator
+	public void calculateNetSalary(Double salary, TaxableIncome taxCalculator) {
+	    try {
+	        this.grossSalary = salary;
+	        this.netSalary = taxCalculator.calculateTax(new Budget(salary));
+	    } catch (Exception e) {
+	        // Handle the error gracefully
+	    }
+	}
 	
 }
