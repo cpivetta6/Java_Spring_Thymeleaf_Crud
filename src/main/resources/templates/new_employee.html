@@ -21,22 +21,36 @@
 		<hr>
 		<h2>Save Employee</h2>
 
-		<form action="#" th:action="@{/saveEmployee}" th:object="${employee}"
+		<form action="#" id="myForm" th:action="@{/saveEmployee}" th:object="${employee}"
 			method="POST">
-			<input type="text" th:field="*{firstName}"
+			<input type="text" required th:field="*{firstName}"
 				placeholder="Employee First Name" class="form-control mb-4 col-4">
 				
-				<input type="text" th:field="*{lastName}"
+				<input type="text" required th:field="*{lastName}"
 				placeholder="Employee Last Name" class="form-control mb-4 col-4">
 				
-				<input type="text" th:field="*{email}"
+				<input type="text" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" th:field="*{email}"
 				placeholder="Employee Email" class="form-control mb-4 col-4">
 				
-				<input type="text" th:field="*{salary}"
+				<input type="number" id="salary" required min="0" th:field="*{salary}"
+				
 				placeholder="Employee Salary" class="form-control mb-4 col-4">
 				
 				<button type="submit" class="btn btn-info col-2"> Save Employee</button>
 		</form>
+		
+		<script>
+  			const form = document.getElementById('myForm');
+  			const salaryInput = document.getElementById('salary');
+  
+  			form.addEventListener('submit', function(event) {
+   			const salary = salaryInput.value;
+    		if (!salary.match(/^\d+(\.\d+)?$/)) {
+      		alert('Please enter a valid double number for salary');
+      		event.preventDefault();
+   			 }
+ 		 });
+		</script>
 		
 		<hr>
 		
