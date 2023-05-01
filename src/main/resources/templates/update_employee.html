@@ -19,16 +19,33 @@
 			<!-- Add hidden form field to handle update -->
 			<input type="hidden" th:field="*{id}" />
 			
-			<input type="text" th:field="*{firstName}" class="form-control mb-4 col-4">
+			<input type="text" required th:field="*{firstName}" class="form-control mb-4 col-4">
 				
-				<input type="text" th:field="*{lastName}" class="form-control mb-4 col-4">
+				<input type="text" required th:field="*{lastName}" class="form-control mb-4 col-4">
 				
-				<input type="text" th:field="*{email}" class="form-control mb-4 col-4">
+				<input type="text" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" th:field="*{email}" class="form-control mb-4 col-4">
 				
-				<input type="text" th:field="*{salary}" class="form-control mb-4 col-4">
+				<input type="number" id="salary" required min="0" th:field="*{salary}" class="form-control mb-4 col-4">
 				
 				<button type="submit" class="btn btn-info col-2"> Update Employee</button>
 		</form>
+		
+		<script>
+  			const form = document.getElementById('myForm');
+  			const salaryInput = document.getElementById('salary');
+  
+  			form.addEventListener('submit', function(event) {
+   			const salary = salaryInput.value;
+    		if (!salary.match(/^\d+(\.\d+)?$/)||salary.match(/^$/)) {
+      			alert('Please enter a valid double number for salary');
+      		    salaryInput.classList.add("error");
+      		 	event.preventDefault();
+   			 }else{
+   			 salaryInput.classList.remove("error");
+   			 }
+   			 
+ 		 });
+		</script>
 		
 		<hr>
 		
